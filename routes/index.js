@@ -3,9 +3,18 @@ const router = express.Router();
 
 const isLoggedin = require("../middleware/isLoggedin");
 
-router.get("/shop", isLoggedin, (req, res) => {
-  //   console.log("res", res);
-  res.send("Shop Route");
-});
+const {
+  addToCart,
+  getCarts,
+  getProducts,
+  removeCart,
+} = require("../controllers/cartController");
+
+router.get("/shop", isLoggedin, getProducts);
+
+router.get("/addtocart/:id", isLoggedin, addToCart);
+
+router.get("/removecart/:id", isLoggedin, removeCart);
+router.get("/cart", isLoggedin, getCarts);
 
 module.exports = router;
